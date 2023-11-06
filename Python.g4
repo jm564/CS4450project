@@ -38,22 +38,31 @@ SHOULDN'T WORK;
 5 -- 6
  */
 
-// define rules for python expressions
-expression
-    : expression ('*' | '/' | '+' | '-' | '%') expression         
-    | INT                                  
-    | '(' expression ')'                   
-    ;
+CAP: [A-Z];
+LOW: [a-z];
+UND: '_';
+INT: [0-9]+ ('.' [0-9]+)?;
+TRE: 'True';
+FLE: 'False';
 
-// lexer rules
-INT :   [0-9]+ ;                           // for integers
-MUL :   '*' ;                              // multiplication
-DIV :   '/' ;                              // division
-ADD :   '+' ;                              // addition
-SUB :   '-' ;                              // subtraction
-MOD :   '%' ;                              // modulo
-LPAREN: '(' ;                              // left parenthesis
-RPAREN: ')' ;                              // right parenthesis
+assignment_operators: equal | assignment_arithmetic;
 
-// define a rule for whitespace to ignore it
-WS  :   [ \t\r\n]+ -> skip ;              
+assignment_arithmetic: variable ('+=' | '-=' | '*=' | '/=') (variable | expression);
+
+expression: expression ('*' | '/' | '+' | '-' | '%') expression | variable | '(' expression ')';
+
+equal: variable '=' equal_operand;
+
+equal_operand: expression | TRE | FLE | string| charquotes | listing | variable;
+
+variable: (CAP | LOW | UND | INT)+;
+
+string: '"' variable '"';
+
+charquotes: '\'' variable '\'';
+
+comp_value: string | charquotes | variable;
+
+listing: '[' ']' | '[' comp_value (',' comp_value)* ']';
+
+WS  :   [ \t\r\n]+ -> skip ;  
