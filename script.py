@@ -18,7 +18,7 @@ def main():
     # Attempt to parse the expression (assuming 'expression' is your entry point)
     try:
         tree = parser.expression()
-        print(f"Resul: {tree.toStringTree(recog=parser)}")
+        print(f"Result: {tree.toStringTree(recog=parser)}")
     except RecognitionException as e:
         print(f"Something went wrong!")
 
