@@ -4,23 +4,22 @@ from PythonParser import PythonParser
 
 def main():
     # Get user input or process a file, here we're reading from the command line
-    input_stream = InputStream(input('Enter an expression: '))
+    file_inp = ""
+    with open("project_deliverable_1_testcase.py", "r") as file:
+        file_inp = file.readlines()
 
-    # Create a lexer from the input stream
-    lexer = PythonLexer(input_stream)
+    for line in file_inp:
+        input_stream = InputStream(line)
 
-    # Create a stream of tokens from the lexer
-    token_stream = CommonTokenStream(lexer)
+        lexer = PythonLexer(input_stream)
+        token_stream = CommonTokenStream(lexer)
+        parser = PythonParser(token_stream)
 
-    # Create a parser from the token stream
-    parser = PythonParser(token_stream)
-
-    # Attempt to parse the expression (assuming 'expression' is your entry point)
-    try:
-        tree = parser.expression()
-        print(f"Result: {tree.toStringTree(recog=parser)}")
-    except RecognitionException as e:
-        print(f"Something went wrong!")
+        try:
+            tree = parser.assignment_operators()
+            print(f"Result: {tree.toStringTree(recog=parser)}")
+        except RecognitionException as e:
+            print("Error parsing.\n")
 
 if __name__ == '__main__':
     main()
