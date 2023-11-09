@@ -146,6 +146,12 @@ class PythonParser ( Parser ):
             if hasattr( listener, "exitFile_input" ):
                 listener.exitFile_input(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitFile_input" ):
+                return visitor.visitFile_input(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -202,6 +208,12 @@ class PythonParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitAssignment_operators" ):
                 listener.exitAssignment_operators(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitAssignment_operators" ):
+                return visitor.visitAssignment_operators(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -264,6 +276,12 @@ class PythonParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitAssignment_arithmetic" ):
                 listener.exitAssignment_arithmetic(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitAssignment_arithmetic" ):
+                return visitor.visitAssignment_arithmetic(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -335,6 +353,12 @@ class PythonParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitExpression" ):
                 listener.exitExpression(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitExpression" ):
+                return visitor.visitExpression(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -429,6 +453,12 @@ class PythonParser ( Parser ):
             if hasattr( listener, "exitEqual" ):
                 listener.exitEqual(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitEqual" ):
+                return visitor.visitEqual(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -496,6 +526,12 @@ class PythonParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitEqual_operand" ):
                 listener.exitEqual_operand(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitEqual_operand" ):
+                return visitor.visitEqual_operand(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -602,6 +638,12 @@ class PythonParser ( Parser ):
             if hasattr( listener, "exitVariable" ):
                 listener.exitVariable(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitVariable" ):
+                return visitor.visitVariable(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -662,6 +704,12 @@ class PythonParser ( Parser ):
             if hasattr( listener, "exitString" ):
                 listener.exitString(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitString" ):
+                return visitor.visitString(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -707,6 +755,12 @@ class PythonParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitCharquotes" ):
                 listener.exitCharquotes(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitCharquotes" ):
+                return visitor.visitCharquotes(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -761,6 +815,12 @@ class PythonParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitComp_value" ):
                 listener.exitComp_value(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitComp_value" ):
+                return visitor.visitComp_value(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -824,6 +884,12 @@ class PythonParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitListing" ):
                 listener.exitListing(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitListing" ):
+                return visitor.visitListing(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
