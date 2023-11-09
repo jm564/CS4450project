@@ -45,6 +45,8 @@ INT: [0-9]+ ('.' [0-9]+)?;
 TRE: 'True';
 FLE: 'False';
 
+file_input: (assignment_operators)* EOF;
+
 assignment_operators: equal | assignment_arithmetic;
 
 assignment_arithmetic: variable ('+=' | '-=' | '*=' | '/=') (variable | expression);
@@ -53,7 +55,7 @@ expression: expression ('*' | '/' | '+' | '-' | '%') expression | variable | '('
 
 equal: variable '=' equal_operand;
 
-equal_operand: expression | TRE | FLE | string| charquotes | listing | variable;
+equal_operand: expression | TRE | FLE | string | charquotes | listing | variable;
 
 variable: (CAP | LOW | UND | INT)+;
 
