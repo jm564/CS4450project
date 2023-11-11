@@ -36,7 +36,7 @@ def to_dot(tree, rule_names):
 
 def main():
     # Get user input or process a file, here we're reading from the command line
-    with open("project_deliverable_1_testcase.py", "r") as file:
+    with open("project_deliverable_2_testcase.py", "r") as file:
         file_content = file.read()
 
     input_stream = InputStream(file_content)

@@ -19,20 +19,21 @@ var2 = var1/2 + 5
 var3 = var2 % 2
 var4 = 1
 flag = True
-assign1 = ""
+
+
 if var1 > var2:
-arith_op1 = 1 + 2
-assign1 = "text data"
+    arith_op1 = 1 + 2
+    assign1 = "text data"
 if var1 <= var2 and var3 == var4:
-arith_op1 = 1 + 2
-assign1 = "text data"
+    arith_op1 = 1 + 2
+    assign1 = "text data"
 else:
-arith_op4 = 4.2 * 10
-arith_op3 *= arith_op4
+    arith_op4 = 4.2 * 10
+    arith_op3 *= arith_op4
 data = 0
 if var1 != var2 or var3 >= var4:
-flag = True
+    flag = True
 elif (not flag) and var3 > 10:
-flag = False
+    flag = False
 else:
-data = -1
+    data = -1
