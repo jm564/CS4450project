@@ -45,19 +45,20 @@ INT: [0-9]+ ('.' [0-9]+)?;
 TRE: 'True';
 FLE: 'False';
 
-file_input: (assignment_operators)* EOF;
+file_input: (assignment_operators | if)* EOF;
 
 assignment_operators: equal | assignment_arithmetic;
 
 assignment_arithmetic: variable ('+=' | '-=' | '*=' | '/=') (variable | expression);
 
+// expression: expression ('*' | '/' | '+' | '-' | '%') expression | variable | '(' expression ')';
 expression: expression ('*' | '/' | '+' | '-' | '%') expression | variable | '(' expression ')';
 
 equal: variable '=' equal_operand;
 
 equal_operand: expression | TRE | FLE | string | charquotes | listing | variable;
 
-variable: (CAP | LOW | UND | INT)+;
+variable: (CAP | LOW | UND | INT | '-'INT)+;
 
 string: '"' variable '"';
 
@@ -68,3 +69,24 @@ comp_value: string | charquotes | variable;
 listing: '[' ']' | '[' comp_value (',' comp_value)* ']';
 
 WS  :   [ \t\r\n]+ -> skip ;  
+
+
+// deliverable 2 - Conditional statements (<, <=, >, >=, ==, !=,and, or, not) 
+
+conditional_statements: expression | '(not' expression ')' | conditional_statements ( '<' | '<=' | '>' | '>=' | '==' | '!=' | 'and' | 'or' | 'not') conditional_statements;
+
+// the commented out sections contain the '\t' in the parser, which is for the tab. It's mandatory in Python for if statements
+// so I put it in the parser but because the system we're using removes all whitespace when you try compiling it with the test
+// case it won't recognize it because the test case is tabless. It's confusing, but the uncommented sections work with the 
+// test cases.
+
+//if: 'if' conditional_statements ':' ('\t' (assignment_operators | if))* elif;
+if: 'if' conditional_statements ':' (assignment_operators | if)* elif;
+
+
+//elif: else | 'elif' conditional_statements ':' ('\t' (assignment_operators | if))* elif*;
+elif: else | 'elif' conditional_statements ':' (assignment_operators | if)* elif*;
+
+//else: 'else:' ('\t' (assignment_operators | if))*;
+else: 'else:' (assignment_operators | if)*;
+
