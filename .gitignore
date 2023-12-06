@@ -396,3 +396,11 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+Python.interp
+Python.tokens
+PythonLexer.interp
+PythonLexer.py
+PythonLexer.tokens
+PythonListener.py
+PythonParser.py
+PythonVisitor.py
