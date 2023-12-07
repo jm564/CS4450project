@@ -90,3 +90,19 @@ elif: else | 'elif' conditional_statements ':' (assignment_operators | if)* elif
 //else: 'else:' ('\t' (assignment_operators | if))*;
 else: 'else:' (assignment_operators | if)*;
 
+// While loop
+while_loop: 'while' conditional_statements ':' loop_body;
+
+// For loop
+for_loop: 'for' variable 'in' iterable ':' loop_body;
+
+// Iterables for for-loop
+iterable: variable | listing;
+
+// Loop body
+loop_body: (assignment_operators | if | while_loop | for_loop | comment)*;
+
+// Comments
+comment: '#' .*? '\n' -> skip; // Single-line comments
+        | '"""' .*? '"""' -> skip // Multi-line comments
+        | '\'\'\'' .*? '\'\'\'' -> skip;
