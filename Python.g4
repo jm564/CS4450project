@@ -38,6 +38,7 @@ SHOULDN'T WORK;
 5 -- 6
  */
 
+SPECIAL_CHARS: '.';
 CAP: [A-Z];
 LOW: [a-z];
 UND: '_';
@@ -63,7 +64,7 @@ equal: variable '=' equal_operand;
 
 equal_operand: expression | TRE | FLE | string | charquotes | listing | variable;
 
-variable: (CAP | LOW | UND | INT | '-'INT)+;
+variable: (CAP | LOW | UND | INT | '-'INT | SPECIAL_CHARS)+;
 
 string: '"' variable '"';
 
