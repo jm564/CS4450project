@@ -44,6 +44,11 @@ UND: '_';
 INT: [0-9]+ ('.' [0-9]+)?;
 TRE: 'True';
 FLE: 'False';
+NEWLINE: '\n';
+CARRIAGE_RETURN: '\r';
+POUND: '#';
+TRIPLE_QUOTE: '"""';
+TRIPLE_BACK_SLASH: '\'\'\'';
 
 file_input: (assignment_operators | if)* EOF;
 
@@ -68,16 +73,19 @@ comp_value: string | charquotes | variable;
 
 listing: '[' ']' | '[' comp_value (',' comp_value)* ']';
 
-WS  :   [ \t\r\n]+ -> skip ;  
+WS  :   [ \t\r\n]+ -> skip ;
+
+SINGLE_LINE_COMMENTS : POUND .*? CARRIAGE_RETURN? NEWLINE -> skip ;
+MULTI_LINE_COMMENTS : (TRIPLE_QUOTE .*? TRIPLE_QUOTE | TRIPLE_BACK_SLASH .*? TRIPLE_BACK_SLASH) -> skip;
 
 
-// deliverable 2 - Conditional statements (<, <=, >, >=, ==, !=,and, or, not) 
+// deliverable 2 - Conditional statements (<, <=, >, >=, ==, !=,and, or, not)
 
 conditional_statements: expression | '(not' expression ')' | conditional_statements ( '<' | '<=' | '>' | '>=' | '==' | '!=' | 'and' | 'or' | 'not') conditional_statements;
 
 // the commented out sections contain the '\t' in the parser, which is for the tab. It's mandatory in Python for if statements
 // so I put it in the parser but because the system we're using removes all whitespace when you try compiling it with the test
-// case it won't recognize it because the test case is tabless. It's confusing, but the uncommented sections work with the 
+// case it won't recognize it because the test case is tabless. It's confusing, but the uncommented sections work with the
 // test cases.
 
 //if: 'if' conditional_statements ':' ('\t' (assignment_operators | if))* elif;
@@ -90,6 +98,8 @@ elif: else | 'elif' conditional_statements ':' (assignment_operators | if)* elif
 //else: 'else:' ('\t' (assignment_operators | if))*;
 else: 'else:' (assignment_operators | if)*;
 
+
+// deliverable 3
 // While loop
 while_loop: 'while' conditional_statements ':' loop_body;
 
@@ -103,6 +113,5 @@ iterable: variable | listing;
 loop_body: (assignment_operators | if | while_loop | for_loop | comment)*;
 
 // Comments
-comment: '#' .*? '\n' -> skip; // Single-line comments
-        | '"""' .*? '"""' -> skip // Multi-line comments
-        | '\'\'\'' .*? '\'\'\'' -> skip;
+comment: SINGLE_LINE_COMMENTS
+        | MULTI_LINE_COMMENTS;

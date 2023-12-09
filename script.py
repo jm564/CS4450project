@@ -4,7 +4,7 @@ from PythonLexer import PythonLexer
 from PythonParser import PythonParser
 
 # To generate a .png of the parse tree, you will need to install GraphViz to your Python environment, and then use 'dot -Tpng parse_tree.dot -o parse_tree.png' in an ubuntu/wsl terminal (you may need to also install the ubuntu pkg for GraphViz as well)
-# You can download GraphViz to your Python environment by using 'pip install graphviz' 
+# You can download GraphViz to your Python environment by using 'pip install graphviz'
 def to_dot(tree, rule_names):
     def escape(string):
         return string.replace('"', '\\"')
@@ -36,7 +36,7 @@ def to_dot(tree, rule_names):
 
 def main():
     # Get user input or process a file, here we're reading from the command line
-    with open("project_deliverable_2_testcase.py", "r") as file:
+    with open("project_deliverable_3_testcase.py", "r") as file:
         file_content = file.read()
 
     input_stream = InputStream(file_content)
