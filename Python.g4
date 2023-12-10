@@ -1,6 +1,6 @@
 grammar Python;
 
-// entry point is currently expression
+// entry point is currently file_input
 
 /*
 inputs i've tested that you can try on your own machine to replicate my results;
@@ -45,13 +45,12 @@ UND: '_';
 INT: [0-9]+ ('.' [0-9]+)?;
 TRE: 'True';
 FLE: 'False';
-NEWLINE: '\n';
-CARRIAGE_RETURN: '\r';
 POUND: '#';
+NEWLINE: '\n';
 TRIPLE_QUOTE: '"""';
 TRIPLE_BACK_SLASH: '\'\'\'';
 
-file_input: (assignment_operators | if)* EOF;
+file_input: (NEWLINE | (comment | assignment_operators NEWLINE| if | loop NEWLINE))* EOF;
 
 assignment_operators: equal | assignment_arithmetic;
 
@@ -64,7 +63,7 @@ equal: variable '=' equal_operand;
 
 equal_operand: expression | TRE | FLE | string | charquotes | listing | variable;
 
-variable: (CAP | LOW | UND | INT | '-'INT | SPECIAL_CHARS)+;
+variable: (CAP | LOW | UND | INT | '-'INT)+;
 
 string: '"' variable '"';
 
@@ -74,11 +73,7 @@ comp_value: string | charquotes | variable;
 
 listing: '[' ']' | '[' comp_value (',' comp_value)* ']';
 
-WS  :   [ \t\r\n]+ -> skip ;
-
-SINGLE_LINE_COMMENTS : POUND .*? CARRIAGE_RETURN? NEWLINE -> skip ;
-MULTI_LINE_COMMENTS : (TRIPLE_QUOTE .*? TRIPLE_QUOTE | TRIPLE_BACK_SLASH .*? TRIPLE_BACK_SLASH) -> skip;
-
+WS  :   [ \t\r]+ -> skip ;
 
 // deliverable 2 - Conditional statements (<, <=, >, >=, ==, !=,and, or, not)
 
@@ -90,15 +85,17 @@ conditional_statements: expression | '(not' expression ')' | conditional_stateme
 // test cases.
 
 //if: 'if' conditional_statements ':' ('\t' (assignment_operators | if))* elif;
-if: 'if' conditional_statements ':' (assignment_operators | if)* elif;
+if: 'if' conditional_statements ':' NEWLINE ((assignment_operators NEWLINE )| if)* elif;
 
 
 //elif: else | 'elif' conditional_statements ':' ('\t' (assignment_operators | if))* elif*;
-elif: else | 'elif' conditional_statements ':' (assignment_operators | if)* elif*;
+elif: else | ('elif' conditional_statements ':' NEWLINE (assignment_operators | if)* elif*);
 
 //else: 'else:' ('\t' (assignment_operators | if))*;
-else: 'else:' (assignment_operators | if)*;
+else: 'else:' NEWLINE (assignment_operators | if)* NEWLINE;
 
+
+loop: while_loop | for_loop;
 
 // deliverable 3
 // While loop
@@ -114,5 +111,5 @@ iterable: variable | listing;
 loop_body: (assignment_operators | if | while_loop | for_loop | comment)*;
 
 // Comments
-comment: SINGLE_LINE_COMMENTS
-        | MULTI_LINE_COMMENTS;
+comment: POUND .*?
+       | (TRIPLE_QUOTE .*? TRIPLE_QUOTE | TRIPLE_BACK_SLASH .*? TRIPLE_BACK_SLASH) NEWLINE;
