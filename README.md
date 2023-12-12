@@ -9,3 +9,5 @@ Team members are: Jeffrey Morgan, Benjamin Williams, Jules Maslak-Hopper, Alex O
 3. Then, update the file name on line 8 in the script.py to reflect which test case file you want to test.
 4. Run script.py, parse tree for given file should be printed to terminal.
 5. (Optional) If you want to create a .png, you will need to install GraphViz to your Python environment, and then use 'dot -Tpng parse_tree.dot -o parse_tree.png' in an ubuntu/wsl terminal (you may need to also install the ubuntu pkg for GraphViz as well, which can be found at https://www.graphviz.org/download/, you can also find other compatible versions as well)
+
+DEMO VIDEO : https://www.youtube.com/watch?v=q20vMddxblM
